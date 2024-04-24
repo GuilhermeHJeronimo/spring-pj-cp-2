@@ -16,12 +16,36 @@ import java.util.Set;
 @NoArgsConstructor
 
 
+@Entity
+@Table(name = "TB_LOJA")
 public class Loja {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_LOJA")
+    @SequenceGenerator(name = "SQ_LOJA", sequenceName = "SQ_LOJA", allocationSize = 1)
+    @Column(name = "ID_LOJA")
     private Long id;
-
     private String nome;
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "TB_VEICULO_LOJA",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "LOJA",
+                            referencedColumnName = "ID_LOJA",
+                            foreignKey = @ForeignKey(
+                                    name = "FK_LOJA_VEICULO"
+                            )
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "VEICULO",
+                            referencedColumnName = "ID_VEICULO",
+                            foreignKey = @ForeignKey(
+                                    name = "FK_VEICULO_LOJA"
+                            )
+                    )
+            }
+    )
     private Set<Veiculo> veiculosComercializados = new LinkedHashSet<>();
-
 }
