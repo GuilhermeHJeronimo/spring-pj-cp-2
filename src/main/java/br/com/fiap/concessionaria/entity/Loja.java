@@ -9,12 +9,10 @@ import lombok.NoArgsConstructor;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 
 @Entity
 @Table(name = "TB_LOJA")
@@ -24,7 +22,9 @@ public class Loja {
     @SequenceGenerator(name = "SQ_LOJA", sequenceName = "SQ_LOJA", allocationSize = 1)
     @Column(name = "ID_LOJA")
     private Long id;
+
     private String nome;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "TB_VEICULO_LOJA",
@@ -48,4 +48,8 @@ public class Loja {
             }
     )
     private Set<Veiculo> veiculosComercializados = new LinkedHashSet<>();
+
+    public Loja(String nome) {
+
+    }
 }

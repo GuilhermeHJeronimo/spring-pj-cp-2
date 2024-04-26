@@ -16,15 +16,19 @@ import lombok.NoArgsConstructor;
         @UniqueConstraint(name = "UK_CARACTERISTICA_NOME_VEICULO", columnNames = {"nome", "VEICULO"})
 })
 public class Caracteristica {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SQ_CARACTERISICA")
     @SequenceGenerator(name = "SQ_CARACTERISICA", sequenceName = "SQ_CARACTERISICA", allocationSize = 1)
     @Column(name = "ID_CARACTERISTICA")
     private Long id;
-    @Column(length = 30)
+
+    @Column(length = 30, nullable = false)
     private String nome;
+
     @Column(length = 20)
     private String descricao;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(
             name = "VEICULO",

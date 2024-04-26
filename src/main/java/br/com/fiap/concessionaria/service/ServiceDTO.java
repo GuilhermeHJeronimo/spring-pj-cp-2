@@ -1,6 +1,8 @@
 package br.com.fiap.concessionaria.service;
 
 
+import br.com.fiap.concessionaria.dto.response.AcessorioResponse;
+import br.com.fiap.concessionaria.entity.Acessorio;
 import org.springframework.data.domain.Example;
 
 import java.util.Collection;
@@ -12,6 +14,8 @@ import java.util.Collection;
  */
 public interface ServiceDTO<Entity, Request, Response> {
 
+
+    AcessorioResponse paraResposta(Acessorio e);
 
     public Collection<Entity> findAll(Example<Entity> example);
 
